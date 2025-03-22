@@ -202,7 +202,7 @@
       padding: 25px;
       border-radius: 8px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-      z-index: 1000;
+      z-index: 10000;
       overflow: auto;
       opacity: 0;
       transition: transform 0.3s ease, opacity 0.3s ease;
@@ -268,7 +268,7 @@
       left: 0;
       background: rgba(0,0,0,0.4);
       backdrop-filter: blur(2px);
-      z-index: 999;
+      z-index: 9999;
       opacity: 0;
       transition: opacity 0.3s ease;
     }
@@ -352,6 +352,8 @@
       font-size: 12px;
       min-width: 50px;
       min-height: 30px;
+      position: relative;
+      z-index: 10;
     }
     
     .help-button:hover {
@@ -605,12 +607,6 @@
         <button id="copy-diagnosis">複製</button>
       </div>
     </div>
-
-    <!-- 修改說明對話框的 HTML -->
-    <div id="help-modal">
-      <div id="help-content"></div>
-      <button id="close-help">關閉</button>
-    </div>
   </div>
 
   <footer>
@@ -618,7 +614,13 @@
     <p>Designed by Dr.CH Tsai | <a href="https://github.com/yourusername/yourrepo" target="_blank" style="color: var(--accent-color); text-decoration: none;">GitHub</a></p>
   </footer>
 
+  <!-- 移到網頁最下方 -->
   <div id="modal-overlay"></div>
+  <div id="help-modal">
+    <div id="help-content"></div>
+    <button id="close-help">關閉</button>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html> 

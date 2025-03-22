@@ -255,21 +255,68 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // 為所有說明按鈕添加事件監聽器
   document.querySelectorAll('.help-button').forEach(button => {
-    button.addEventListener('click', function() {
+    button.addEventListener('click', function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      
       const type = this.getAttribute('data-type');
-      showHelp(type);
+      
+      // 直接使用簡單方式顯示說明
+      const modal = document.getElementById('help-modal');
+      const overlay = document.getElementById('modal-overlay');
+      const content = document.getElementById('help-content');
+      
+      // 設置內容
+      content.innerHTML = getHelpContent(type);
+      
+      // 顯示模態框
+      modal.style.display = 'block';
+      overlay.style.display = 'block';
+      
+      setTimeout(() => {
+        modal.classList.add('active');
+        overlay.classList.add('active');
+      }, 10);
     });
   });
 
   // 為關閉按鈕添加事件監聽器
-  document.getElementById('close-help').addEventListener('click', closeHelp);
+  document.getElementById('close-help').addEventListener('click', function(event) {
+    event.preventDefault();
+    
+    // 直接關閉模態框
+    const modal = document.getElementById('help-modal');
+    const overlay = document.getElementById('modal-overlay');
+    
+    modal.classList.remove('active');
+    overlay.classList.remove('active');
+    
+    setTimeout(() => {
+      modal.style.display = 'none';
+      overlay.style.display = 'none';
+    }, 300);
+  });
 
   // 點擊遮罩層關閉說明視窗
-  document.getElementById('modal-overlay').addEventListener('click', closeHelp);
-
-  // 顯示說明函數
-  function showHelp(type) {
-    const helpContent = {
+  document.getElementById('modal-overlay').addEventListener('click', function(event) {
+    event.preventDefault();
+    
+    // 直接關閉模態框
+    const modal = document.getElementById('help-modal');
+    const overlay = document.getElementById('modal-overlay');
+    
+    modal.classList.remove('active');
+    overlay.classList.remove('active');
+    
+    setTimeout(() => {
+      modal.style.display = 'none';
+      overlay.style.display = 'none';
+    }, 300);
+  });
+  
+  // 取得說明內容
+  function getHelpContent(type) {
+    return {
       't': `
         <h3>T分期說明</h3>
         <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
@@ -445,36 +492,6 @@ document.addEventListener('DOMContentLoaded', function() {
           </tr>
         </table>
       `
-    };
-
-    document.getElementById('help-content').innerHTML = helpContent[type];
-    const helpModal = document.getElementById('help-modal');
-    const overlay = document.getElementById('modal-overlay');
-    
-    // 先顯示元素
-    helpModal.style.display = 'block';
-    overlay.style.display = 'block';
-    
-    // 使用setTimeout確保DOM更新後再添加active類
-    setTimeout(() => {
-      helpModal.classList.add('active');
-      overlay.classList.add('active');
-    }, 10);
-  }
-
-  // 關閉說明函數
-  function closeHelp() {
-    const helpModal = document.getElementById('help-modal');
-    const overlay = document.getElementById('modal-overlay');
-    
-    // 移除active類，觸發過渡效果
-    helpModal.classList.remove('active');
-    overlay.classList.remove('active');
-    
-    // 等待過渡效果完成後隱藏元素
-    setTimeout(() => {
-      helpModal.style.display = 'none';
-      overlay.style.display = 'none';
-    }, 300);
+    }[type];
   }
 }); 
