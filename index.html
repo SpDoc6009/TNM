@@ -194,7 +194,7 @@
       position: fixed;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%) scale(0.95);
       width: 90%;
       max-width: 800px;
       max-height: 90vh;
@@ -204,6 +204,13 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.15);
       z-index: 1000;
       overflow: auto;
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    
+    #help-modal.active {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
     }
     
     /* 調整表格容器樣式 */
@@ -262,6 +269,12 @@
       background: rgba(0,0,0,0.4);
       backdrop-filter: blur(2px);
       z-index: 999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    #modal-overlay.active {
+      opacity: 1;
     }
     
     /* 添加頁腳樣式 */
@@ -385,6 +398,94 @@
       flex: 1;
       margin-right: 15px;
       line-height: 1.5;
+    }
+    
+    /* 手機端說明對話框樣式調整 */
+    @media (max-width: 600px) {
+      #help-modal {
+        padding: 15px 12px;
+        width: 95%;
+        max-height: 85vh;
+      }
+      
+      #help-content {
+        font-size: 14px;
+      }
+      
+      #help-content table {
+        min-width: unset;
+        width: 100%;
+        font-size: 12px;
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+      
+      #help-content th, #help-content td {
+        padding: 6px 8px;
+        font-size: 12px;
+      }
+      
+      #help-content h3 {
+        font-size: 16px;
+        margin-top: 10px;
+        margin-bottom: 8px;
+      }
+      
+      #help-content h4 {
+        font-size: 14px;
+        margin-top: 8px;
+        margin-bottom: 6px;
+      }
+      
+      #help-content p {
+        font-size: 13px;
+        margin: 6px 0;
+        line-height: 1.4;
+      }
+      
+      #help-content ul, #help-content ol {
+        padding-left: 18px;
+        margin: 6px 0;
+      }
+      
+      #help-content li {
+        font-size: 13px;
+        margin-bottom: 4px;
+        line-height: 1.4;
+      }
+      
+      /* 讓表格內某些關鍵詞突出顯示 */
+      #help-content strong, #help-content b {
+        color: var(--accent-color);
+      }
+      
+      /* 調整關閉按鈕 */
+      #close-help {
+        margin-top: 10px;
+        width: 100%;
+        position: sticky;
+        bottom: 0;
+        display: block;
+        padding: 12px;
+        font-size: 16px;
+        background-color: var(--accent-color);
+        z-index: 10;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+      }
+      
+      /* 當表格超寬時添加提示樣式 */
+      #help-content::before {
+        content: "← 左右滑動查看更多 →";
+        display: block;
+        text-align: center;
+        color: var(--accent-color);
+        font-size: 12px;
+        margin-bottom: 8px;
+        padding: 4px;
+        background-color: rgba(139, 69, 19, 0.05);
+        border-radius: 4px;
+      }
     }
   </style>
 </head>

@@ -448,13 +448,33 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     document.getElementById('help-content').innerHTML = helpContent[type];
-    document.getElementById('help-modal').style.display = 'block';
-    document.getElementById('modal-overlay').style.display = 'block';
+    const helpModal = document.getElementById('help-modal');
+    const overlay = document.getElementById('modal-overlay');
+    
+    // 先顯示元素
+    helpModal.style.display = 'block';
+    overlay.style.display = 'block';
+    
+    // 使用setTimeout確保DOM更新後再添加active類
+    setTimeout(() => {
+      helpModal.classList.add('active');
+      overlay.classList.add('active');
+    }, 10);
   }
 
   // 關閉說明函數
   function closeHelp() {
-    document.getElementById('help-modal').style.display = 'none';
-    document.getElementById('modal-overlay').style.display = 'none';
+    const helpModal = document.getElementById('help-modal');
+    const overlay = document.getElementById('modal-overlay');
+    
+    // 移除active類，觸發過渡效果
+    helpModal.classList.remove('active');
+    overlay.classList.remove('active');
+    
+    // 等待過渡效果完成後隱藏元素
+    setTimeout(() => {
+      helpModal.style.display = 'none';
+      overlay.style.display = 'none';
+    }, 300);
   }
 }); 
